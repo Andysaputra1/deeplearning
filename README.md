@@ -1,6 +1,20 @@
 # AI Trainer - Deep Learning Project
 
-Exercise quality assessment using autoencoders and pose-derived statistical features. This repository brings together the frontend source, Python backend, trained models, experiment notebooks, and original research report for the Deep Learning course at Bina Nusantara University (2025/2026).
+**AI Trainer is a computer vision and deep learning project for assessing exercise technique from body poses.** It focuses on four exercises: **push-ups, pull-ups, squats, and planks**. The research aims to turn movement patterns into a quality score that helps users assess their exercise form using video, without wearable sensors.
+
+### AI model and approach
+
+The core model is a **dense feed-forward autoencoder**, implemented with **TensorFlow/Keras**, with a separate trained model for each exercise. It learns to reconstruct features from examples of correct movements. During assessment, a larger reconstruction error indicates a greater deviation from the learned movement patterns; the backend converts that error into a quality score.
+
+The model operates on **pose-derived statistical features**: joint angles summarized by their mean, standard deviation, minimum, maximum, and range. The report uses **MediaPipe Pose** to extract body landmarks for training. Its described autoencoder compresses the features through **64 and 32 neurons into a 16-neuron bottleneck**, then reconstructs them through **32 and 64 neurons**. Training uses Mean Squared Error (MSE), Adam, Gaussian noise, dropout, and L2 regularization. Pose estimation supplies the landmarks; the autoencoder performs the exercise-quality assessment through anomaly detection.
+
+### Report at a glance
+
+The report, **Exercise Quality Assessment Using Autoencoder and Pose-Derived Statistical Features**, investigates whether statistical joint-angle features and autoencoders can capture correct exercise patterns. It reports reconstruction **MSE around 0.03-0.05**, with more stable training behavior for push-up and plank and greater variation for squat and pull-up. These results describe reconstruction performance, not a classification accuracy percentage. Main limitations include camera viewpoint, limited training-data diversity, and the choice of scoring thresholds.
+
+[Read the full report (PDF)](research/2702234094_ANDY%20SAPUTRA_20260122231752_COMP6826001_LG01_SBFN_conf.pdf) · [Read the research summary](research/README.md)
+
+This repository contains the frontend, backend, trained models, notebooks, and report for the Deep Learning course at Bina Nusantara University (2025/2026). **The imported frontend is currently a standalone demo with a simulated counter; it is not connected to the backend's AI scoring API.** The backend also differs from the reported pipeline by accepting MoveNet-style keypoints and using FastAPI; see the research summary for the implementation differences.
 
 ## Repository structure
 
